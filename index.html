@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customized Sneaker Order Form</title>
+    <script>
+        // JavaScript validation function
+        function validateForm(event) {
+            const phone = document.getElementById("phone").value;
+            const comments = document.getElementById("comments").value;
+
+            // Validate phone number
+            if (!/^\d{10}$/.test(phone)) {
+                alert("Please enter a 10-digit phone number.");
+                event.preventDefault();
+                return false;
+            }
+
+            // Validate comments character limit
+            if (comments.length > 200) {
+                alert("Comments should not exceed 200 characters.");
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        }
+
+        // Receipt generation on form submission
+        function generateReceipt(event) {
+            if (validateForm(event)) {
+                event.preventDefault();
+                const date = new Date();
+                const receipt = `
+                    Order Confirmation\n
+                    Date: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}\n
+                    Name: ${document.getElementById("name").value}\n
+                    Address: ${document.getElementById("address").value}\n
+                    Email: ${document.getElementById("email").value}\n
+                    Phone: ${document.getElementById("phone").value}\n
+                    Sneaker Details - Name: ${document.getElementById("tagline").value}, Color: ${document.getElementById("color").value}, 
+                    Size: ${document.getElementById("size").value}, Quantity: ${document.getElementById("quantity").value}\n
+                `;
+                alert(receipt);
+            }
+        }
+
+        // Person class and Student class with inheritance
+        class Person {
+            constructor(name, email) {
+                this.name = name;
+                this.email = email;
+            }
+            displayInfo() {
+                console.log(`Name: ${this.name}, Email: ${this.email}`);
+            }
+        }
+
+        class Student extends Person {
+            constructor(name, email, rollNo) {
+                super(name, email);
+                if (rollNo === 0) {
+                    throw new Error("Roll number cannot be zero.");
+                }
+                this.rollNo = rollNo;
+            }
+            displayInfo() {
+                super.displayInfo();
+                console.log(`Roll No: ${this.rollNo}`);
+            }
+        }
+
+        // Usage demonstration
+        document.addEventListener("DOMContentLoaded", () => {
+            try {
+                const student = new Student("Alice", "alice@example.com", 101);
+                student.displayInfo();
+            } catch (error) {
+                console.error("Error:", error.message);
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <h1>Place Your Customized Sneaker Order</h1>
+    <form onsubmit="generateReceipt(event)">
+        <fieldset>
+            <legend>Sneaker Details</legend>
+            <label for="tagline">Name on the Sneaker:</label><br>
+            <input type="text" id="tagline" name="tagline" placeholder="Enter your Name" required><br><br>
+            <label for="color">Color:</label><br>
+            <select id="color" name="color" required>
+                <option value="" disabled selected>Select color</option>
+                <option value="white">White</option>
+                <option value="black">Black</option>
+                <option value="red">Red</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+            </select><br><br>
+            <label for="size">Size:</label><br>
+            <select id="size" name="size" required>
+                <option value="" disabled selected>Select size</option>
+                <option value="small">7</option>
+                <option value="medium">8</option>
+                <option value="large">9</option>
+                <option value="xl">10</option>
+                <option value="xxl">11</option>
+            </select><br><br>
+            <label for="quantity">Quantity:</label><br>
+            <input type="number" id="quantity" name="quantity" min="1" placeholder="1" required><br><br>
+            <label for="delivery-date">Delivery Date:</label><br>
+            <input type="date" id="delivery-date" name="delivery-date" required><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Delivery Details</legend>
+            <label for="name">Recipient's Name:</label><br>
+            <input type="text" id="name" name="name" placeholder="Enter recipient's name" required><br><br>
+            <label for="address">Address:</label><br>
+            <input type="text" id="address" name="address" placeholder="Enter delivery address" required><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" placeholder="Enter email address" required><br><br>
+            <label for="phone">Phone Number:</label><br>
+            <input type="tel" id="phone" name="phone" placeholder="Enter phone number" pattern="[0-9]{10}" required><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Additional Comments</legend>
+            <label for="comments">Comments or Special Instructions:</label><br>
+            <textarea id="comments" name="comments" rows="4" maxlength="200" placeholder="Enter any additional comments"></textarea><br><br>
+        </fieldset>
+
+        <button type="submit">Submit Order</button>
+        <button type="reset">Reset Form</button>
+    </form>
+</body>
+</html>
