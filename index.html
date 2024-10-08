@@ -45,41 +45,7 @@
             }
         }
 
-        // Person class and Student class with inheritance
-        class Person {
-            constructor(name, email) {
-                this.name = name;
-                this.email = email;
-            }
-            displayInfo() {
-                console.log(`Name: ${this.name}, Email: ${this.email}`);
-            }
-        }
-
-        class Student extends Person {
-            constructor(name, email, rollNo) {
-                super(name, email);
-                if (rollNo === 0) {
-                    throw new Error("Roll number cannot be zero.");
-                }
-                this.rollNo = rollNo;
-            }
-            displayInfo() {
-                super.displayInfo();
-                console.log(`Roll No: ${this.rollNo}`);
-            }
-        }
-
-        // Usage demonstration
-        document.addEventListener("DOMContentLoaded", () => {
-            try {
-                const student = new Student("Alice", "alice@example.com", 101);
-                student.displayInfo();
-            } catch (error) {
-                console.error("Error:", error.message);
-            }
-        });
-
+       
     </script>
 </head>
 <body>
